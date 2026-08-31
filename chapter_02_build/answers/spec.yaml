@@ -1,0 +1,6 @@
+
+web:
+  modules:
+    - web_environment_ribbon
+    - web_responsive # ligne à rajouter
+  src: https://github.com/oca/web 19.0

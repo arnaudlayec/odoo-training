@@ -1,0 +1,102 @@
+<odoo>
+    <record id="library_book_view_list" model="ir.ui.view">
+        <field name="name">library.book.list</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="isbn" optional="hide"/>
+                <field name="date_release"/> <!-- Default widget: date -->
+                <field name="page_count" optional="hide"/>
+                <field name="price" /> <!-- Default widget: monetary -->
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="library_book_view_form" model="ir.ui.view">
+        <field name="name">library.book.form</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <!-- Bonus : bouton statistique sans compteur (pas de champ computed
+                             au chapitre 7, voir chapitre 10) -->
+                        <button type="object"
+                                name="action_view_category_books"
+                                class="oe_stat_button"
+                                icon="fa-book">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Livres de la catégorie</span>
+                            </div>
+                        </button>
+                    </div>
+                    
+                    <!-- widget="image" + class="oe_avatar" : le placement/style standard
+                         d'un champ Image en haut de formulaire (même convention que la
+                         photo d'un contact ou l'image_1920 d'un produit). -->
+                    <field name="cover" widget="image" class="oe_avatar"/>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="isbn"/>
+                            <field name="category_id"/>
+                            <field name="tag_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="date_release"/>
+                            <field name="page_count"/>
+                            <field name="price" />
+                            <field name="currency_id" invisible="1"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_library_book" model="ir.actions.act_window">
+        <field name="name">Livres</field>
+        <field name="res_model">library.book</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- 2e action de fenêtre avec un domain/context par défaut.
+    
+         `active=True` est déjà le filtre implicite d'Odoo sur un champ nommé `active`
+         (records archivés masqués par défaut) => le domain explicite ci-dessous ne change
+         rien au résultat natif mais illustre la syntaxe attendue pour un vrai critère métier
+         (ex. un futur champ `state`, voir chapitre 10 champs calculés)
+
+         `context` pré-remplit le champ `active` par défaut à la création depuis cette action.
+         Idem : c'est déjà le comportement par défaut, on illustre juste la syntaxe. -->
+    <record id="action_library_book_available" model="ir.actions.act_window">
+        <field name="name">Livres disponibles</field>
+        <field name="res_model">library.book</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[("active", "=", True)]</field>
+        <field name="context">{"default_active": True}</field>
+    </record>
+
+    <menuitem id="menu_library_root"
+              name="Bibliothèque"
+              web_icon="library,static/description/icon.png"
+              sequence="10">
+        <menuitem id="menu_library_book"
+                  name="Livres"
+                  action="action_library_book"
+                  sequence="10"/>
+        <menuitem id="menu_library_book_available"
+                  name="Livres disponibles"
+                  action="action_library_book_available"
+                  sequence="15"/>
+    </menuitem>
+</odoo>

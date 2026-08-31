@@ -1,0 +1,14 @@
+<odoo noupdate="1">
+    <!-- noupdate="1" : ces catégories de référence sont chargées une seule fois, à
+         l'installation. Un ré-install/update du module n'écrasera pas un renommage
+         fait par l'utilisateur. -->
+    <record id="library_book_category_novel" model="library.book.category">
+        <field name="name">Roman</field>
+    </record>
+    <record id="library_book_category_comic" model="library.book.category">
+        <field name="name">Bande dessinée</field>
+    </record>
+    <record id="library_book_category_essay" model="library.book.category">
+        <field name="name">Essai</field>
+    </record>
+</odoo>

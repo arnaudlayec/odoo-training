@@ -1,0 +1,22 @@
+<odoo>
+    <record id="ir_actions_server_library_book_new" model="ir.actions.server">
+        <field name="name">Bibliothèque : notifier nouveau livre</field>
+        <field name="model_id" ref="model_library_book"/>
+        <field name="state">code</field>
+        <field name="code">
+if record:
+    env.ref("library.mail_template_library_book_new").send_mail(record.id, force_send=True)
+        </field>
+    </record>
+
+    <!-- base.automation (événement) plutôt qu'ir.cron (le temps) : on réagit à la création
+         d'un livre, pas à une échéance planifiée — cf. théorie du chapitre. -->
+    <record id="base_automation_library_book_new" model="base.automation">
+        <field name="name">Bibliothèque : alerter nouveau livre</field>
+        <field name="model_id" ref="model_library_book"/>
+        <field name="trigger">on_create</field>
+        <!-- Bonus : ne se déclenche que pour les livres de la catégorie "Roman" -->
+        <field name="filter_domain" eval="str([('category_id', '=', ref('library_book_category_novel'))])"/>
+        <field name="action_server_ids" eval="[(4, ref('ir_actions_server_library_book_new'))]"/>
+    </record>
+</odoo>

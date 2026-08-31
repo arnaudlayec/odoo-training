@@ -1,0 +1,15 @@
+<odoo>
+    <record id="action_report_library_book" model="ir.actions.report">
+        <field name="name">Fiche livre</field>
+        <field name="model">library.book</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">library.report_library_book</field>
+        <field name="report_file">library.report_library_book</field>
+        <field name="print_report_name">'Fiche livre - %s' % (object.name)</field>
+        <!-- binding_model_id + binding_type="report" : ajoute ce rapport au menu Imprimer
+             de library.book, aussi bien depuis la vue form que depuis une sélection
+             multiple en vue list (docs = tout le recordset sélectionné). -->
+        <field name="binding_model_id" ref="model_library_book"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

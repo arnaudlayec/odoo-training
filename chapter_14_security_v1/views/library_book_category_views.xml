@@ -1,0 +1,32 @@
+<odoo>
+    <record id="library_book_category_view_form" model="ir.ui.view">
+        <field name="name">library.book.category.form</field>
+        <field name="model">library.book.category</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <notebook>
+                        <page string="Livres">
+                            <field name="book_ids" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_library_book_category" model="ir.actions.act_window">
+        <field name="name">Catégories</field>
+        <field name="res_model">library.book.category</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_library_book_category"
+              name="Catégories"
+              parent="menu_library_root"
+              action="action_library_book_category"
+              sequence="20"/>
+</odoo>

@@ -1,0 +1,14 @@
+<odoo>
+    <!-- Exercice principal -->
+    <record id="action_library_book_category" model="ir.actions.act_window">
+        <field name="name">Catégories</field>
+        <field name="res_model">library.book.category</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_library_book_category"
+              name="Catégories"
+              parent="menu_library_root"
+              action="action_library_book_category"
+              sequence="20"/>
+</odoo>

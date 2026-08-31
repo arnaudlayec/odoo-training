@@ -1,0 +1,33 @@
+<odoo>
+    <record id="library_book_borrow_wizard_view_form" model="ir.ui.view">
+        <field name="name">library.book.borrow.wizard.form</field>
+        <field name="model">library.book.borrow.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="book_id" readonly="1"/>
+                    <field name="partner_id"/>
+                    <field name="loan_date"/>
+                </group>
+                <footer>
+                    <button type="object" name="action_confirm" string="Emprunter"
+                            class="btn-primary"/>
+                    <button special="cancel" string="Annuler" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- target="new" ouvre cette vue form dans une popup plutôt qu'en plein écran — la
+         convention pour un wizard
+         active_id : variable spéciale toujours disponible dans le context d'une action
+         déclenchée par un bouton lié à un enregistrement précis — ici,
+         l'id du library.book dont dépend le formulaire où figure le bouton "Emprunter". -->
+    <record id="action_library_book_borrow_wizard" model="ir.actions.act_window">
+        <field name="name">Emprunter ce livre</field>
+        <field name="res_model">library.book.borrow.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{"default_book_id": active_id}</field>
+    </record>
+</odoo>

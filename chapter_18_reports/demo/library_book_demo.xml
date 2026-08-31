@@ -1,0 +1,36 @@
+<odoo>
+    <record id="library_book_demo_1" model="library.book">
+        <field name="name">Les Misérables</field>
+        <field name="isbn">9780140444308</field>
+        <field name="category_id" ref="library_book_category_novel"/>
+        <field name="date_release">1862-01-01</field>
+        <field name="page_count">1900</field>
+        <field name="state">available</field>
+    </record>
+    <record id="library_book_demo_2" model="library.book">
+        <field name="name">Astérix le Gaulois</field>
+        <field name="isbn">9782012101333</field>
+        <field name="category_id" ref="library_book_category_comic"/>
+        <field name="date_release">1961-01-01</field>
+        <field name="page_count">48</field>
+        <field name="state">available</field>
+    </record>
+    <record id="library_book_demo_3" model="library.book">
+        <field name="name">Sapiens : une brève histoire de l'humanité</field>
+        <field name="isbn">9782226257017</field>
+        <field name="category_id" ref="library_book_category_essay"/>
+        <field name="date_release">2011-01-01</field>
+        <field name="page_count">512</field>
+        <field name="state">borrowed</field>
+        <field name="borrower_id" ref="base.res_partner_2"/>
+        <field name="loan_date" eval="DateTime.today().strftime('%Y-%m-%d')"/>
+    </record>
+    <record id="library_book_demo_4" model="library.book">
+        <field name="name">Le Petit Prince</field>
+        <field name="isbn">9782070408504</field>
+        <field name="category_id" ref="library_book_category_novel"/>
+        <field name="date_release">1943-01-01</field>
+        <field name="page_count">96</field>
+        <field name="state">new</field>
+    </record>
+</odoo>

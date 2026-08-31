@@ -1,0 +1,59 @@
+<odoo>
+    <template id="report_library_book">
+        <t t-call="web.html_container">
+            <!-- docs : recordset sélectionné, le multi-records est supporté nativement
+                 (impression group depuis la vue list). Le logo est déjà géré par
+                 web.external_layout (company.logo, en en-tête). -->
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 t-field="doc.name"/>
+
+                        <div t-if="doc.cover" class="text-center mb-3">
+                            <img t-att-src="image_data_uri(doc.cover)" style="max-height: 200px;"/>
+                        </div>
+
+                        <table class="table table-sm">
+                            <tr>
+                                <td>Catégorie</td>
+                                <td><span t-field="doc.category_id"/></td>
+                            </tr>
+                            <tr>
+                                <td>Date de parution</td>
+                                <td><span t-field="doc.date_release"/></td>
+                            </tr>
+                            <tr>
+                                <td>Nombre de pages</td>
+                                <td><span t-field="doc.page_count"/></td>
+                            </tr>
+                            <tr>
+                                <td>État</td>
+                                <td><span t-field="doc.state"/></td>
+                            </tr>
+                            <tr>
+                                <!-- champ calculé (category_count, chapitre 10) -->
+                                <td>Livres de la catégorie</td>
+                                <td><span t-field="doc.category_count"/></td>
+                            </tr>
+                        </table>
+
+                        <div t-if="doc.state == 'borrowed'">
+                            <h4>Emprunt en cours</h4>
+                            <p>
+                                Emprunté par <span t-field="doc.borrower_id"/>
+                                le <span t-field="doc.loan_date"/>.
+                            </p>
+                            <!-- Bonus : autres livres empruntés par le même adhérent -->
+                            <p t-if="doc.borrower_id.borrowed_book_ids">
+                                Livres également empruntés par les mêmes personnes :
+                                <t t-foreach="doc.borrower_id.borrowed_book_ids" t-as="other_book">
+                                    <span t-field="other_book.name"/><t t-if="not other_book_last">, </t>
+                                </t>
+                            </p>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

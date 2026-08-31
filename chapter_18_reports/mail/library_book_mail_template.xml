@@ -1,0 +1,25 @@
+<odoo>
+    <record id="mail_template_library_book_new" model="mail.template">
+        <field name="name">Bibliothèque : nouveau livre disponible</field>
+        <field name="model_id" ref="model_library_book"/>
+        <field name="subject">Nouveau livre disponible : {{ object.name }}</field>
+        <!-- À défaut d'une liste d'adhérents abonnés (hors périmètre de cette formation),
+             on notifie ici l'email de la société — à remplacer par une vraie liste de
+             diffusion en production. -->
+        <field name="email_to">{{ object.company_id.email }}</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p>Bonjour,</p>
+                <p>
+                    Le livre <strong t-out="object.name"/> est maintenant disponible
+                    à la bibliothèque.
+                </p>
+                <p>
+                    Catégorie : <t t-out="object.category_id.name or ''"/><br/>
+                    Date de parution : <t t-out="object.date_release or ''"/>
+                </p>
+                <p>Bonne lecture !</p>
+            </div>
+        </field>
+    </record>
+</odoo>

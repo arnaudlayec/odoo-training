@@ -284,7 +284,23 @@ echo "UID=1000" >> .env
 cat .env # affiche le contenu du fichier : vous devez trouver 'UID=1000' en dernière ligne
 ```
 
-### 8.4 Télécharger le code Odoo et lancer l'environnement
+### 8.4 Installer et lancer `traefik`
+
+Traefik est un reverse-proxy, au même titre que Nginx par exemple.
+Son avantage est qu'il s'intégère bien avec Docker.
+Il est utilisé et nécessaire en environnement de développement.
+
+Pour l'installer, il faut télécharger un `docker-compose.yml` préconfiguré pour
+Odoo et lancer le container en mode persistant.
+
+```bash
+cd ~/training
+git clone https://github.com/akretion/traefik-template.git traefik
+cd traefik
+docker compose up -d
+```
+
+### 8.5 Télécharger le code Odoo et lancer l'environnement
 
 **Cette étape est IMPÉRATIVEMENT à faire AVANT le 1er jour de formation et pas en salle, car
 fortement dépendante de la connexion Internet.**
@@ -323,6 +339,11 @@ odoo -i base --stop-after-init --load-language=fr_FR
 odoo  # C'est tout !
 ```
 
+Si vous avez une erreur au `odoo -i base ...`, essayer ceci en première action de déboggage :
+1. Sortir du container, et vous positionner dans le répertoire `training`
+2. Supprimer le dossier `.db` avec : `rm -rf .db`
+3. Reprendre le tutoriel à l'étape `docky run` (juste avant)
+
 Puis ouvrir dans un navigateur : [http://training_19-0.localhost](http://training.localhost/).
 Login : `admin` ; Password : `admin`.
 Bravo d'être arrivé jusque là !
@@ -335,6 +356,7 @@ Bravo d'être arrivé jusque là !
 > - VS Code + extensions Python / Docker / WSL
 > - Git configuré, dans WSL
 > - pipx, docky, ak, copier installés DANS WSL
+> - Container "traefik" lancé en parallèle
 > - Projet généré via copier + `docky run` et build testé au moins une fois avec succès
 >   (important !)
 
@@ -344,6 +366,7 @@ Bravo d'être arrivé jusque là !
 >   Rainbow CSV, XML Tools)
 > - Git configuré
 > - pipx, docky, ak, copier installés
+> - Container "traefik" lancé en parallèle
 > - Projet généré via copier + `docky run` testé au moins une fois avec succès
 >   (important !)
 

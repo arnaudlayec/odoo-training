@@ -89,7 +89,6 @@
                 <field name="name"/>
                 <field name="category_id"/>
                 <field name="isbn"/>
-                <field name="price_with_tax"/>
                 <filter string="Disponibles" name="filter_available"
                         domain="[('state', '=', 'available')]"/>
                 <filter string="Empruntés" name="filter_borrowed"

@@ -6,7 +6,7 @@
         <!-- À défaut d'une liste d'adhérents abonnés (hors périmètre de cette formation),
              on notifie ici l'email de la société — à remplacer par une vraie liste de
              diffusion en production. -->
-        <field name="email_to">{{ object.company_id.email }}</field>
+        <field name="email_to">{{ object.borrower_id.email }}</field>
         <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p>Bonjour,</p>

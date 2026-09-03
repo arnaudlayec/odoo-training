@@ -10,17 +10,6 @@ class LibraryBook(models.Model):
     _description = "Livre de bibliothèque"
     _order = "sequence, id"
 
-    # [V19] Nouvelle syntaxe : un attribut de classe `models.Constraint`, en remplacement de
-    # l'ancien `_sql_constraints = [(...)]`. Le nom d'attribut (préfixé `_`) sert d'identifiant
-    # technique de la contrainte.
-    _isbn_unique = models.Constraint(
-        "UNIQUE(isbn)",
-        "L'ISBN doit être unique.",
-    )
-    # Bonus 1 : un index sur un champ souvent filtré (ex. la recherche par catégorie côté
-    # vue search/kanban du chapitre 9) accélère ces requêtes sur un gros volume de données.
-    _category_index = models.Index("(category_id)")
-
     name = fields.Char(string="Titre", required=True)
     isbn = fields.Char()
     date_release = fields.Date(string="Date de sortie")
@@ -59,6 +48,17 @@ class LibraryBook(models.Model):
         search="_search_price_with_tax",
     )
 
+    # [V19] Nouvelle syntaxe : un attribut de classe `models.Constraint`, en remplacement de
+    # l'ancien `_sql_constraints = [(...)]`. Le nom d'attribut (préfixé `_`) sert d'identifiant
+    # technique de la contrainte.
+    _isbn_unique = models.Constraint(
+        "UNIQUE(isbn)",
+        "L'ISBN doit être unique.",
+    )
+    # Bonus 1 : un index sur un champ souvent filtré (ex. la recherche par catégorie côté
+    # vue search/kanban du chapitre 9) accélère ces requêtes sur un gros volume de données.
+    _category_index = models.Index("(category_id)")
+
     # ----------------------------------------------------------------
     # Compute
     # ----------------------------------------------------------------
@@ -91,8 +91,6 @@ class LibraryBook(models.Model):
     # ----------------------------------------------------------------
     @api.constrains("date_release")
     def _check_date_release(self):
-        if self.env.context.get("skip_date_release_check"): # Bonus
-            return
         today = fields.Date.context_today(self)
         for book in self:
             if book.date_release and book.date_release > today:

@@ -60,9 +60,9 @@ class TestLibraryBook(TransactionCase):
         )
         partner = self.env["res.partner"].create({"name": "Emprunteur Test"})
 
-        wizard_form = Form(
-            self.env["library.book.borrow.wizard"].with_context(default_book_id=book.id)
-        )
+        wizard_form = self.env["library.book.borrow.wizard"].create({
+
+        }).with_context(default_book_id=book.id)
         wizard_form.partner_id = partner
         wizard = wizard_form.save()
         wizard.action_confirm()

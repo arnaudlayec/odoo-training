@@ -4,6 +4,12 @@
             <!-- docs : recordset sélectionné, le multi-records est supporté nativement
                  (impression group depuis la vue list). Le logo est déjà géré par
                  web.external_layout (company.logo, en en-tête). -->
+            <t t-call="web.external_layout">
+                <div class="page">
+                    aaa
+                </div>
+            </t>
+
             <t t-foreach="docs" t-as="doc">
                 <t t-call="web.external_layout">
                     <div class="page">

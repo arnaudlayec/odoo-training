@@ -59,9 +59,6 @@ class LibraryBook(models.Model):
     # ----------------------------------------------------------------
     @api.depends("category_id.book_ids")
     def _compute_category_count(self):
-        for book in self:
-            book.category_count = len(book.category_id.book_ids)
-
         # Bonus: version performance optimisée
         rg_result = self.env["library.book"]._read_group(
             domain=Domain("category_id", "in", self.category_id.ids),

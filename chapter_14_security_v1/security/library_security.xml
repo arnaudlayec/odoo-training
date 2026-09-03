@@ -3,7 +3,7 @@
         <field name="name">Bibliothèque</field>
     </record>
 
-    <record model="res.groups.privilege" id="res_groups_privilege_library">
+    <record id="res_groups_privilege_library" model="res.groups.privilege">
         <field name="name">Bibliothèque</field>
         <field name="category_id" ref="module_category_library" />
     </record>
